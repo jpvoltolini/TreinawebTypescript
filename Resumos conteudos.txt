@@ -1,0 +1,197 @@
+  __ o TYPE SRIPT É UMA LINGUAGEM DE TIPAGEM, VOCE INDICA O TIPO DA VARIÁVEL,  por declaração ou não.
+    Se voce colocar:
+    - let nome: string;
+    - let idade: number;
+    - let maiorIdade: boolean;
+
+    sera o mesmo que: 
+
+    - let nome = "nome em string";
+    - let idade = 13; (numero em geral)
+    - let maiorIdade = false; (true or false)
+
+    Ambos deixam a variável tipada.
+ ___________________ 
+ -- testes das aulas:
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+Variaveis:
+-----------
+var nome: string;
+var idade: number;
+var maiorIdade: boolean;
+
+
+nome = "cenourinha"
+idade = 13
+maiorIdade = false;
+
+console.log(nome)
+console.log("nome: " + nome+ ", idade: " + idade + ", sou de maior: " + maiorIdade)
+
+
+let a: number ;
+let b: number ;
+
+a = 7
+b = 8
+function soma(a:number, b:number) {
+    return " a soma de a + b, é igual a: " + (a + b);
+}
+console.log(soma(a,b));  
+
+--------------------------------
+ ARRAYS:
+
+let a: (number | string)[] = [1,2,3,"João Pedro Voltolini"];
+
+a.push(4);
+a.push("exemplo posição 5");
+
+console.log(a); 
+
+ - ARRAYS em  TIPOS
+ type TipoArray = (number | string)[];
+
+let a: TipoArray = [1,2,3, "strig de teste"];
+let b: TipoArray = [0,"strig de teste",3, "strig de teste"];
+
+ console.log(a,b); 
+
+type Animal = {
+    nome: string;
+    idade: number;
+    peso: number;
+}
+ let cachorro: Animal;
+
+ cachorro = {
+    nome:"Lolla",
+    idade: 4,
+    peso: 2,
+ }
+ console.log(cachorro); 
+ --------------------------------------------------------------
+ ENUM:
+enum produtoStatus{
+    Ativo = 1,
+    Inativo = 2,
+    Indisponível = 3
+}
+
+ function checarProdutosStatus(status:number) {
+    switch (status) {
+        case produtoStatus.Ativo:
+            console.log("Produto disponível.");
+            break;
+        case produtoStatus.Inativo:
+            console.log("Produto não existente.");
+            break;
+        
+        case produtoStatus.Indisponível:
+            console.log("Produto aguardando estoque.")
+            break;
+
+        default:
+            console.log("Código do Status INEXISTENTE, favor inserir corretamente.")
+            break;
+    }
+ }
+ checarProdutosStatus(produtoStatus.Indisponível)
+'
+__________________________________________________________________________________
+fundamentos do TS;
+Interface e classe
+Este recurso garante que outras estruturas, como classes, implementem propriedades e métodos de forma obrigatória.
+
+Com recurso de CASSES é possível definirmos propriedades, atributos e comportamentos de um Objeto
+
+GET permite vc alterar dentro da Classe, e o SET permite alteração fora da classe.
+
+ 
+  interface IAnimal{
+    nome: string;
+    idade: number;
+    estaVivo: boolean;
+
+    nascer(): void;
+    crescer(): void;
+    morrer():void;
+}
+
+class Animal implements IAnimal {
+    nome: string;
+    idade: number;
+    private _estaVivo: boolean;
+    
+    
+    get estaVivo() : boolean {
+        return this._estaVivo;
+    }
+    
+    set estaVivo(status: boolean) {
+        this._estaVivo = status;
+    }
+    
+     
+    constructor(nome: string) {
+        this.nome = nome;
+        this.idade = 0;
+        this._estaVivo = false;
+    }
+    
+    nascer() {
+        this._estaVivo = true;
+        return console.log(`o ${this.nome} nasceu uhull !`)
+    };
+
+    crescer(){
+        this.idade++;
+        return console.log(`o ${this.nome} cresceu, e está com ${this.idade} anos.`)
+    };
+
+    morrer() {
+        this._estaVivo = false;
+        this.idade = 0;
+        return console.log(`o ${this.nome} morreu... :(`)
+    };
+}_________________________________________________________________________________________________
+---------------------------------------------------------------------------------------------------
+
+ O NAMESPACE é um recurso que auxilia na organização de código, afinal, ele trabalha com escopo fechado, 
+evitando conflitos entre componentes de escopo global 
+namespace Terrestres{
+    export class Cachorro extends Animal {
+        correr() {
+            console.log(`o ${this.nome} Correu!`)
+        }
+    }
+    export let cachorro = new Cachorro('rex')
+    cachorro.correr()
+}
+
+namespace Marinhos{
+    export class Golfinho extends Animal {
+        nadar() {
+            console.log(`o ${this.nome} Nadou!`)
+        }
+    }
+    export let golfinho = new Golfinho('golfo')
+    golfinho.nadar()
+}
+
+namespace Aéreo{
+    export class Passarinho extends Animal {
+        voar() {
+            console.log(`o ${this.nome} voou!`)
+        }
+    }
+    export let passarinho = new Passarinho('Piu-Piu')
+    passarinho.voar()
+}
+
+Terrestres.cachorro.correr()
+Marinhos.golfinho.nadar()
+Aéreo.passarinho.voar()
+ 
+
+
